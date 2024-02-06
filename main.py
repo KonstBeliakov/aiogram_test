@@ -9,7 +9,7 @@ from core.handlers.basic import get_started, get_photo, get_hello
 from core.settings import settings
 from aiogram.filters import ContentTypesFilter, Command
 from aiogram import F
-
+from core.handlers.basic import get_location
 
 admin_id = []
 
@@ -36,6 +36,7 @@ async def start():
     dp.message.register(get_hello, F.text == 'Привет')
     #dp.message.register(get_photo, ContentTypesFilter(content_types=[ContentType.PHOTO]))
     dp.message.register(get_photo, F.photo)
+    dp.message.register(get_location, ContentTypesFilter(content_types=[ContentType.LOCATION]))
 
     try:
         await dp.start_polling(bot)
