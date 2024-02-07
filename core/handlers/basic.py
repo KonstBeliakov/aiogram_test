@@ -3,6 +3,11 @@ from aiogram.types import Message
 
 import json
 from core.keyboards.reply import reply_keyboard, loc_tel_poll_keyboard, get_reply_keyboard
+from core.keyboards.inline import select_inline_button
+
+async def get_inline(message: Message, bot: Bot):
+    await message.answer(f'Привет, {message.from_user.first_name}. Выбери инлайн кнопку',
+                         reply_markup=select_inline_button)
 
 async def get_started(message: Message, bot: Bot):
     # можно написать в любой чат

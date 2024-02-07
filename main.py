@@ -5,16 +5,18 @@ import asyncio
 import logging
 import os
 
-from core.handlers.basic import get_started, get_photo, get_hello
+from core.handlers.basic import get_started, get_photo, get_hello, get_inline
 from core.settings import settings
 from aiogram.filters import ContentTypesFilter, Command
 from aiogram import F
 from core.handlers.basic import get_location
+from core.utils.commands import set_commands
 
 admin_id = []
 
 
 async def start_bot(bot: Bot):
+    await set_commands(bot)
     await bot.send_message(settings.bots.admin_id, text='Бот запущен')
 
 
@@ -37,6 +39,7 @@ async def start():
     #dp.message.register(get_photo, ContentTypesFilter(content_types=[ContentType.PHOTO]))
     dp.message.register(get_photo, F.photo)
     dp.message.register(get_location, ContentTypesFilter(content_types=[ContentType.LOCATION]))
+    dp.message.register(get_inline, Command(commands='inline'))
 
     try:
         await dp.start_polling(bot)
@@ -45,5 +48,4 @@ async def start():
 
 
 if __name__ == '__main__':
-    print('hello world')
     asyncio.run(start())
