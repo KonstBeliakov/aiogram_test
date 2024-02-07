@@ -11,6 +11,8 @@ from aiogram.filters import ContentTypesFilter, Command
 from aiogram import F
 from core.handlers.basic import get_location
 from core.utils.commands import set_commands
+from core.handlers import form
+from core.utils.statesform import StepsForm
 
 admin_id = []
 
@@ -40,6 +42,8 @@ async def start():
     dp.message.register(get_photo, F.photo)
     dp.message.register(get_location, ContentTypesFilter(content_types=[ContentType.LOCATION]))
     dp.message.register(get_inline, Command(commands='inline'))
+    dp.message.register(form.get_form, Command(commands='form'))
+    dp.message.register(form.get_name, StepsForm.GET_NAME)
 
     try:
         await dp.start_polling(bot)
